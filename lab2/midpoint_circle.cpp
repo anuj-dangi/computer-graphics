@@ -2,6 +2,32 @@
 #include <GL/glut.h>
 using namespace std;
 
+void drawGridAxis()
+{
+    glColor3f(0.7, 0.7, 0.7);
+    glBegin(GL_LINES);
+
+    for(int i=-10;i<=10;i++)
+    {
+        glVertex2f(i, -10);
+        glVertex2f(i, 10);
+
+        glVertex2f(-10, i);
+        glVertex2f(10, i);
+    }
+
+    glColor3f(0.0, 0.0, 0.0);
+    glLineWidth(2);
+
+    glVertex2f(-10, 0);
+    glVertex2f(10, 0);
+
+    glVertex2f(0, -10);
+    glVertex2f(0, 10);
+
+    glEnd();
+}
+
 void drawPixel(int x, int y)
 {
     glBegin(GL_POINTS);
@@ -47,16 +73,20 @@ void midpoint(int r)
 void init()
 {
     glClearColor(1, 1, 1, 1);
-    glColor3f(1, 0, 0);
-    glPointSize(2);
-    gluOrtho2D(-200, 200, -200, 200);
+    glColor3f(0, 0, 1);
+    glPointSize(3);
+    gluOrtho2D(-10, 10, -10, 10);
 }
 
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    midpoint(150);
+    drawGridAxis();
+
+    glColor3f(1.0, 0.0, 0.0);
+
+    midpoint(7);
 
     glFlush();
 }
