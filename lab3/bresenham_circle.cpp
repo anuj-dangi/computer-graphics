@@ -1,5 +1,31 @@
 #include <GL/glut.h>
 
+void drawGridAxis()
+{
+    glColor3f(0.7, 0.7, 0.7);
+    glBegin(GL_LINES);
+
+    for(int i=-10;i<=10;i++)
+    {
+        glVertex2f(i, -10);
+        glVertex2f(i, 10);
+
+        glVertex2f(-10, i);
+        glVertex2f(10, i);
+    }
+
+    glColor3f(0.0, 0.0, 0.0);
+    glLineWidth(2);
+
+    glVertex2f(-10, 0);
+    glVertex2f(10, 0);
+
+    glVertex2f(0, -10);
+    glVertex2f(0, 10);
+
+    glEnd();
+}
+
 void display();
 void init();
 void bresenhamCircle(int, int, int);
@@ -25,11 +51,14 @@ int main(int argc, char** argv)
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 1.0, 1.0);
-    glPointSize(3.0);
+
+    drawGridAxis();
+
+    glColor3f(0.0, 0.0, 1.0);
+    glPointSize(4.0);
     
     glBegin(GL_POINTS);
-    bresenhamCircle(0, 0, 30);
+    bresenhamCircle(0, 0, 5);
     glEnd();
 
     glFlush();
@@ -37,10 +66,10 @@ void display()
 
 void init()
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(1.0, 1.0, 1.0, 1.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(-50, 50, -50, 50);
+    gluOrtho2D(-10, 10, -10, 10);
 }
 
 void bresenhamCircle(int h, int k, int r)
