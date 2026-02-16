@@ -1,6 +1,32 @@
 #include <GL/glut.h>
 #include <cmath>
 
+void drawGridAxis()
+{
+    glColor3f(0.7, 0.7, 0.7);
+    glBegin(GL_LINES);
+
+    for(int i=-10;i<=10;i++)
+    {
+        glVertex2f(i, -10);
+        glVertex2f(i, 10);
+
+        glVertex2f(-10, i);
+        glVertex2f(10, i);
+    }
+
+    glColor3f(0.0, 0.0, 0.0);
+    glLineWidth(2);
+
+    glVertex2f(-10, 0);
+    glVertex2f(10, 0);
+
+    glVertex2f(0, -10);
+    glVertex2f(0, 10);
+
+    glEnd();
+}
+
 void drawPixel(float x, float y) {
     glBegin(GL_POINTS);
     glVertex2f(x, y);
@@ -26,18 +52,35 @@ void ddaLine(float x1, float y1, float x2, float y2) {
     }
 }
 
+void drawLine(int x1, int y1, int x2, int y2)
+{
+    glBegin(GL_LINES);
+    glColor3f(1.0, 0.0, 0.0);
+
+    glVertex2f(x1, y1);
+    glVertex2f(x2, y2);
+
+    glEnd();
+}
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 1.0, 1.0); // white line
-    ddaLine(50, 50, 300, 200);
+
+    drawGridAxis();
+
+    drawLine(1, 3, 8, 9);
+
+    glColor3f(0.0, 0.0, 1.0); 
+    glPointSize(3.0);
+    ddaLine(1, 3, 8, 9);
     glFlush();
 }
 
 void init() {
-    glClearColor(0.0, 0.0, 0.0, 1.0); // black background
+    glClearColor(1.0, 1.0, 1.0, 1.0); // black background
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, 500, 0, 500);
+    gluOrtho2D(-10, 10, -10, 10);
 }
 
 int main(int argc, char** argv) {
